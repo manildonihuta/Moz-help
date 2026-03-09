@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br" x-data="{ darkMode: false, mobileMenu: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Cookies | Moz Help</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        accent: '#06B6D4',
+                        darkBg: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+        .legal-content h2 { font-family: 'Sora', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; margin-top: 3rem; margin-bottom: 1.5rem; }
+        .legal-content p { color: #475569; line-height: 1.625; margin-bottom: 1rem; }
+        .dark .legal-content p { color: #94a3b8; }
+        .legal-content ul { list-style-type: disc; list-style-position: inside; color: #475569; margin-bottom: 1.5rem; }
+        .dark .legal-content ul { color: #94a3b8; }
+        .legal-content ul li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300 font-sans">
+
+    <!-- Navbar -->
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" data-lucide="moon"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="text-yellow-400"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu"></i>
+            </button>
+                    <a href="como-funciona.html" @click="mobileMenu = false">Como Funciona</a>
+                    <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                    <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                    <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                    <a href="sobre.html" @click="mobileMenu = false">Sobre Nós</a>
+                    <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                    <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                    <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-2">
+                        <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="pt-32 pb-20 px-6 lg:px-16">
+        <div class="max-w-4xl mx-auto glass p-8 md:p-16 rounded-[3rem] shadow-xl">
+            <h1 class="text-4xl md:text-5xl font-display font-extrabold mb-8 italic"><span class="gradient-text">Política</span> de Cookies</h1>
+            <p class="text-sm opacity-60 mb-12">Última atualização: 08 de Março de 2024</p>
+            
+            <div class="legal-content">
+                <p>A Moz Help utiliza cookies para melhorar a sua experiência, personalizar conteúdo e anúncios, fornecer recursos de redes sociais e analisar o nosso tráfego.</p>
+
+                <h2>1. O que são Cookies?</h2>
+                <p>Cookies são pequenos ficheiros de texto que os sites armazenam no seu computador ou dispositivo móvel quando você os visita. Eles ajudam o site a lembrar das suas ações e preferências ao longo do tempo.</p>
+
+                <h2>2. Tipos de Cookies que Utilizamos</h2>
+                <ul>
+                    <li><strong>Essenciais:</strong> Necessários para o funcionamento básico do site, como login e segurança.</li>
+                    <li><strong>Desempenho:</strong> Recolhem informações sobre como os usuários interagem com o site, ajudando-nos a corrigir erros e melhorar a navegação.</li>
+                    <li><strong>Funcionalidade:</strong> Permitem que o site se lembre de escolhas que você faz (como o seu idioma ou modo escuro).</li>
+                    <li><strong>Publicidade:</strong> Utilizados para entregar anúncios mais relevantes para você e para medir a eficácia das campanhas.</li>
+                </ul>
+
+                <h2>3. Como Gerir os Cookies</h2>
+                <p>Você pode controlar e/ou excluir cookies como desejar. Pode excluir todos os cookies já presentes no seu computador e configurar a maioria dos navegadores para impedir que eles sejam instalados.</p>
+                <p>No entanto, se o fizer, poderá ter que ajustar manualmente algumas preferências sempre que visitar um site e alguns serviços e funcionalidades poderão não funcionar.</p>
+
+                <h2>4. Mudanças na Política</h2>
+                <p>Podemos atualizar esta Política de Cookies periodicamente para refletir mudanças nas nossas práticas ou por motivos operacionais, legais ou regulatórios.</p>
+
+                <div class="mt-16 p-8 rounded-3xl bg-indigo-100 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800">
+                    <h4 class="font-bold mb-2">Transparência Total</h4>
+                    <p class="text-sm mb-4">Acreditamos que você deve ter controle total sobre os seus dados.</p>
+                    <a href="contato.html" class="text-primary font-bold hover:underline">Solicitar mais informações</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 lg:px-16 bg-white dark:bg-darkCard border-t border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div class="md:col-span-4">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-9 w-auto mb-6 optimize-logo">
+                <p class="text-slate-500 dark:text-gray-400 leading-relaxed mb-6 text-sm max-w-sm">Simplificando o dia a dia das famílias e empresas moçambicanas com tecnologia e confiança.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 md:col-start-7 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Plataforma</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a></li>
+                    <li><a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a></li>
+                    <li><a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a></li>
+                    <li><a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Empresa</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">Sobre Nós</a></li>
+                    <li><a href="contato.html" class="hover:text-primary transition-colors">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Suporte</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="#" class="hover:text-primary transition-colors">Ajuda</a></li>
+                    <li><a href="termos.html" class="hover:text-primary transition-colors">Termos</a></li>
+                    <li><a href="privacidade.html" class="hover:text-primary transition-colors">Privacidade</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-400 uppercase tracking-widest font-medium">
+            <p>&copy; 2024 Moz Help Tecnologia S.A.</p>
+            <div class="flex gap-8">
+                <a href="cookies.html" class="hover:text-primary transition-colors font-bold text-primary">Cookies</a>
+                <a href="contato.html" class="hover:text-primary transition-colors font-bold text-primary">WhatsApp Suporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

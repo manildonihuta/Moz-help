@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta | Moz Help</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        accent: '#06B6D4',
+                        darkBg: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .blob { filter: blur(60px); position: absolute; z-index: -1; opacity: 0.4; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900 dark:bg-darkBg dark:text-gray-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
+
+    <!-- Background Blobs -->
+    <div class="blob w-96 h-96 bg-primary top-0 -left-20"></div>
+    <div class="blob w-96 h-96 bg-accent bottom-0 -right-20"></div>
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" data-lucide="moon"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="text-yellow-400"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition x-cloak class="absolute top-full left-0 w-full glass p-6 md:hidden">
+            <div class="flex flex-col gap-4">
+                <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                <a href="como-funciona.html" @click="mobileMenu = false">Como Funciona</a>
+                <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                <a href="sobre.html" @click="mobileMenu = false">Sobre Nós</a>
+                <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-2">
+                    <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                </button>
+                <hr class="border-gray-200 dark:border-gray-700">
+                <a href="solicitar.html" class="w-full py-3 text-center bg-primary text-white rounded-xl">Solicitar serviço</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center pt-32 pb-20 px-6">
+        <div class="max-w-md w-full glass rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-display font-extrabold mb-2">Crie sua conta</h1>
+                <p class="text-slate-600 dark:text-gray-400">Comece a usar a Moz Help hoje</p>
+            </div>
+
+            <form @submit.prevent="window.location.href='painel.html'" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold mb-2">Nome Completo</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40"></i>
+                        <input type="text" placeholder="Seu nome" required
+                               class="w-full pl-12 pr-4 py-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">E-mail</label>
+                    <div class="relative">
+                        <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40"></i>
+                        <input type="email" placeholder="seu@email.com" required
+                               class="w-full pl-12 pr-4 py-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Senha</label>
+                    <div class="relative">
+                        <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40"></i>
+                        <input type="password" placeholder="Mínimo 8 caracteres" required
+                               class="w-full pl-12 pr-4 py-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3 py-2">
+                    <input type="checkbox" id="terms" required class="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary shadow-sm">
+                    <label for="terms" class="text-sm text-slate-600 dark:text-gray-400">
+                        Eu concordo com os <a href="termos.html" class="text-primary font-semibold hover:underline">Termos de Uso</a> e <a href="privacidade.html" class="text-primary font-semibold hover:underline">Privacidade</a>.
+                    </label>
+                </div>
+
+                <button type="submit" 
+                        class="w-full py-4 bg-primary text-white rounded-xl font-bold shadow-lg shadow-indigo-500/30 hover:scale-[1.02] transition-all">
+                    Criar Conta
+                </button>
+            </form>
+
+            <div class="mt-8 text-center">
+                <p class="text-slate-600 dark:text-gray-400">
+                    Já tem uma conta? 
+                    <a href="login.html" class="text-primary font-bold hover:underline">Fazer login</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

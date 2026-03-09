@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br" x-data="{ darkMode: false, step: 1 }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Serviço | Moz Help</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        accent: '#06B6D4',
+                        darkBg: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .blob { filter: blur(60px); position: absolute; z-index: -1; opacity: 0.4; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900 dark:bg-darkBg dark:text-gray-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
+
+    <!-- Background Blobs -->
+    <div class="blob w-96 h-96 bg-primary top-0 -left-20"></div>
+    <div class="blob w-96 h-96 bg-accent bottom-0 -right-20"></div>
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" data-lucide="moon"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="text-yellow-400"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition x-cloak class="absolute top-full left-0 w-full glass p-6 md:hidden">
+            <div class="flex flex-col gap-4">
+                <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                <a href="como-funciona.html" @click="mobileMenu = false">Como Funciona</a>
+                <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                <a href="sobre.html" @click="mobileMenu = false">Sobre Nós</a>
+                <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-2">
+                    <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                </button>
+                <hr class="border-gray-200 dark:border-gray-700">
+                <a href="solicitar.html" class="w-full py-3 text-center bg-primary text-white rounded-xl">Solicitar serviço</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center pt-32 pb-20 px-6">
+        <div class="max-w-3xl w-full glass rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            
+            <!-- Progress Bar -->
+            <div class="w-full h-2 bg-gray-100 dark:bg-gray-800 rounded-full mb-12 flex overflow-hidden">
+                <div class="h-full bg-primary transition-all duration-500" :style="`width: ${step * 25}%`"></div>
+            </div>
+
+            <!-- Step 1: Categoria do Serviço -->
+            <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+                <h2 class="text-3xl font-display font-extrabold mb-4">Que tipo de ajuda você precisa?</h2>
+                <p class="text-slate-600 dark:text-gray-400 mb-8">Selecione a categoria para encontrarmos o melhor profissional.</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button @click="step = 2" class="p-6 rounded-2xl border-2 border-transparent bg-white dark:bg-gray-800/50 hover:border-primary transition-all text-left group">
+                        <i data-lucide="home" class="w-8 h-8 text-primary mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Serviços Domésticos</h3>
+                        <p class="text-xs opacity-60 text-slate-600 dark:text-gray-400">Limpeza, Babysitter, Cozinha...</p>
+                    </button>
+                    <button @click="step = 2" class="p-6 rounded-2xl border-2 border-transparent bg-white dark:bg-gray-800/50 hover:border-heart transition-all text-left group">
+                        <i data-lucide="heart" class="w-8 h-8 text-accent mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Cuidados Especiais</h3>
+                        <p class="text-xs opacity-60 text-slate-600 dark:text-gray-400">Idosos, Doentes, Hospitalar...</p>
+                    </button>
+                    <button @click="step = 2" class="p-6 rounded-2xl border-2 border-transparent bg-white dark:bg-gray-800/50 hover:border-orange-400 transition-all text-left group">
+                        <i data-lucide="shopping-cart" class="w-8 h-8 text-orange-400 mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Compras Assistidas</h3>
+                        <p class="text-xs opacity-60 text-slate-600 dark:text-gray-400">Compras com transparência total.</p>
+                    </button>
+                    <button @click="step = 2" class="p-6 rounded-2xl border-2 border-transparent bg-white dark:bg-gray-800/50 hover:border-green-400 transition-all text-left group">
+                        <i data-lucide="car" class="w-8 h-8 text-green-500 mb-4 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Motoristas Auxiliares</h3>
+                        <p class="text-xs opacity-60 text-slate-600 dark:text-gray-400">Escola, Eventos, Idosos...</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Detalhes e Data -->
+            <div x-show="step === 2" x-cloak x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0">
+                <h2 class="text-3xl font-display font-extrabold mb-4">Quando e onde?</h2>
+                <p class="text-slate-600 dark:text-gray-400 mb-8">Defina os detalhes para o seu agendamento.</p>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Endereço de Atendimento</label>
+                        <input type="text" placeholder="Rua, Número, Bairro" class="w-full p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Data</label>
+                            <input type="date" class="w-full p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Horário</label>
+                            <input type="time" class="w-full p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                        </div>
+                    </div>
+                    <div class="flex gap-4 pt-6">
+                        <button @click="step = 1" class="px-8 py-4 glass rounded-xl font-bold flex-1">Voltar</button>
+                        <button @click="step = 3" class="px-8 py-4 bg-primary text-white rounded-xl font-bold flex-1 shadow-lg shadow-indigo-500/30">Continuar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Contato -->
+            <div x-show="step === 3" x-cloak x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0">
+                <h2 class="text-3xl font-display font-extrabold mb-4">Quase lá!</h2>
+                <p class="text-slate-600 dark:text-gray-400 mb-8">Como podemos entrar em contato com você?</p>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Nome Completo</label>
+                        <input type="text" placeholder="Seu nome" class="w-full p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">WhatsApp</label>
+                        <input type="tel" placeholder="+258 ..." class="w-full p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:border-primary outline-none transition-all shadow-sm">
+                    </div>
+                    <div class="flex gap-4 pt-6">
+                        <button @click="step = 2" class="px-8 py-4 glass rounded-xl font-bold flex-1">Voltar</button>
+                        <button @click="step = 4" class="px-8 py-4 bg-primary text-white rounded-xl font-bold flex-1 shadow-lg shadow-indigo-500/30">Solicitar Agora</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Sucesso -->
+            <div x-show="step === 4" x-cloak class="text-center">
+                <div class="w-20 h-20 bg-green-100 dark:bg-green-900/40 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="check" class="w-10 h-10"></i>
+                </div>
+                <h2 class="text-4xl font-display font-extrabold mb-4">Pedido Recebido!</h2>
+                <p class="text-slate-600 dark:text-gray-400 mb-10 max-w-sm mx-auto">
+                    Nossa equipe entrará em contato em breve para confirmar os detalhes e enviar o melhor profissional.
+                </p>
+                <a href="index.html" class="inline-block px-8 py-4 bg-primary text-white rounded-xl font-bold shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">
+                    Voltar para o Início
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

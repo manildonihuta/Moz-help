@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-MZ" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Funciona | Moz Help</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); } .dark .glass { background: rgba(15, 23, 42, 0.7); }
+        .step-number { text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.3); }
+        [x-cloak] { display: none !important; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="text-primary font-bold">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" data-lucide="moon"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="text-yellow-400"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition x-cloak class="absolute top-full left-0 w-full glass p-6 md:hidden">
+            <div class="flex flex-col gap-4">
+                <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                <a href="como-funciona.html" @click="mobileMenu = false" class="text-primary font-bold">Como Funciona</a>
+                <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                <a href="sobre.html" @click="mobileMenu = false">Sobre Nós</a>
+                <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-3 py-2 border-t border-gray-50 dark:border-gray-800 mt-2">
+                    <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="w-5 h-5 text-yellow-400"></i>
+                    <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-8 tracking-tight">Viu como é <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">fácil?</span></h1>
+            <p class="text-xl text-slate-500 dark:text-gray-400 max-w-2xl mx-auto">
+                Conectamos quem precisa de ajuda com profissionais qualificados em Moçambique. Todo o processo é rápido, seguro e transparente.
+            </p>
+        </div>
+    </section>
+
+    <!-- For Clients -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="p-3 bg-blue-100 dark:bg-blue-900/30 text-primary rounded-2xl">
+                    <i data-lucide="user"></i>
+                </div>
+                <h2 class="text-3xl font-bold">Para quem precisa de um serviço</h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="glass p-8 rounded-3xl border border-gray-100 dark:border-gray-800 relative group">
+                    <span class="text-8xl font-black text-slate-100 dark:text-slate-900 absolute -top-4 left-4 -z-10 group-hover:text-primary/5 transition-colors">01</span>
+                    <i data-lucide="search" class="w-12 h-12 text-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Solicite</h3>
+                    <p class="text-slate-500 dark:text-gray-400">Diga-nos o que precisa, onde e quando. É rápido e gratuito.</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl border border-gray-100 dark:border-gray-800 relative group">
+                    <span class="text-8xl font-black text-slate-100 dark:text-slate-900 absolute -top-4 left-4 -z-10 group-hover:text-primary/5 transition-colors">02</span>
+                    <i data-lucide="message-square" class="w-12 h-12 text-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Receba Propostas</h3>
+                    <p class="text-slate-500 dark:text-gray-400">Profissionais qualificados enviarão orçamentos personalizados.</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl border border-gray-100 dark:border-gray-800 relative group">
+                    <span class="text-8xl font-black text-slate-100 dark:text-slate-900 absolute -top-4 left-4 -z-10 group-hover:text-primary/5 transition-colors">03</span>
+                    <i data-lucide="star" class="w-12 h-12 text-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Escolha</h3>
+                    <p class="text-slate-500 dark:text-gray-400">Analise perfis, avaliações e preços para escolher o melhor.</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl border border-gray-100 dark:border-gray-800 relative group">
+                    <span class="text-8xl font-black text-slate-100 dark:text-slate-900 absolute -top-4 left-4 -z-10 group-hover:text-primary/5 transition-colors">04</span>
+                    <i data-lucide="check-circle" class="w-12 h-12 text-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Avalie</h3>
+                    <p class="text-slate-500 dark:text-gray-400">Após o serviço concluído, avalie o profissional e ajude a comunidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Pros -->
+    <section class="py-20 bg-slate-100/50 dark:bg-slate-900/50 rounded-[4rem] mx-4">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="p-3 bg-primary text-white rounded-2xl shadow-lg shadow-primary/20">
+                    <i data-lucide="briefcase"></i>
+                </div>
+                <h2 class="text-3xl font-bold">Para profissionais</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center font-bold text-primary shadow-sm">1</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Crie seu Perfil</h3>
+                        <p class="text-slate-500 dark:text-gray-400">Cadastre suas habilidades, fotos de trabalhos e experiência.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center font-bold text-primary shadow-sm">2</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Envie Orçamentos</h3>
+                        <p class="text-slate-500 dark:text-gray-400">Receba solicitações próximas a você e responda rapidamente.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center font-bold text-primary shadow-sm">3</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Feche Negócios</h3>
+                        <p class="text-slate-500 dark:text-gray-400">Converse com clientes, realize o serviço e cresça sua reputação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="py-16 px-6 lg:px-16 bg-white dark:bg-darkCard border-t border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div class="md:col-span-4">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-9 w-auto mb-6 optimize-logo">
+                <p class="text-slate-500 dark:text-gray-400 leading-relaxed mb-6 text-sm max-w-sm">Simplificando o dia a dia das famílias e empresas moçambicanas com tecnologia e confiança.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 md:col-start-7 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Plataforma</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="como-funciona.html" class="hover:text-primary transition-colors font-bold text-primary">Como Funciona</a></li>
+                    <li><a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a></li>
+                    <li><a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a></li>
+                    <li><a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Empresa</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">Sobre Nós</a></li>
+                    <li><a href="contato.html" class="hover:text-primary transition-colors">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Suporte</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="#" class="hover:text-primary transition-colors">Ajuda</a></li>
+                    <li><a href="termos.html" class="hover:text-primary transition-colors">Termos</a></li>
+                    <li><a href="privacidade.html" class="hover:text-primary transition-colors">Privacidade</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-400 uppercase tracking-widest font-medium">
+            <p>&copy; 2024 Moz Help Tecnologia S.A.</p>
+            <div class="flex gap-8">
+                <a href="cookies.html" class="hover:text-primary transition-colors">Cookies</a>
+                <a href="contato.html" class="hover:text-primary transition-colors font-bold text-primary">WhatsApp Suporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

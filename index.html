@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br" x-data="{ darkMode: false, scrolled: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moz Help | Assistência Doméstica Inteligente</title>
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="Plataforma premium de assistência doméstica sob demanda. Limpeza, Babysitter e Cuidados com tecnologia de ponta.">
+    <link rel="icon" type="image/png" href="logo_wordmark.png">
+
+    <!-- Fonts: Sora & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Frameworks -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', // Indigo 600
+                        accent: '#06B6D4',  // Cyan 500
+                        darkBg: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .blob { filter: blur(60px); position: absolute; z-index: -1; opacity: 0.4; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .progress-bar { height: 4px; background: linear-gradient(90deg, #4F46E5, #06B6D4); width: 0%; position: fixed; top: 0; left: 0; z-index: 100; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300 font-sans overflow-x-hidden" 
+      @scroll.window="scrolled = (window.pageYOffset > 20); updateScrollProgress()">
+
+    <!-- Scroll Progress -->
+    <div id="progress" class="progress-bar"></div>
+
+    <!-- 1. Navbar -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" class="fi fi-rr-moon flex items-center justify-center"></i>
+                    <i x-show="darkMode" class="fi fi-rr-sun text-yellow-400 flex items-center justify-center"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition x-cloak class="absolute top-full left-0 w-full glass p-6 md:hidden">
+            <div class="flex flex-col gap-4">
+                <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                <a href="como-funciona.html" @click="mobileMenu = false">Como Funciona</a>
+                <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                <a href="sobre.html" @click="mobileMenu = false">Sobre Nós</a>
+                <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-2">
+                    <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                </button>
+                <hr class="border-gray-200 dark:border-gray-700">
+                <a href="solicitar.html" class="w-full py-3 text-center bg-primary text-white rounded-xl">Solicitar serviço</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="blob w-96 h-96 bg-primary top-0 -left-20"></div>
+        <div class="blob w-96 h-96 bg-accent bottom-0 -right-20"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-16 text-center">
+            <div data-aos="fade-up" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-primary font-semibold text-sm mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                Nova era da assistência doméstica
+            </div>
+            <h1 data-aos="fade-up" data-aos-delay="100" class="text-5xl lg:text-7xl font-display font-extrabold mb-6 leading-tight">
+                Serviços domésticos de <br>
+                <span class="gradient-text">alta performance.</span>
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="200" class="text-lg text-slate-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+                Conectamos você aos profissionais mais qualificados do mercado com tecnologia de ponta e segurança total. Simplicidade para sua vida, excelência para seu lar.
+            </p>
+            
+            <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
+                <a href="solicitar.html" class="px-8 py-4 bg-primary text-white rounded-2xl font-bold text-lg shadow-xl shadow-indigo-500/40 hover:scale-105 transition-all flex items-center justify-center gap-2">
+                    Solicitar Serviço <i class="fi fi-rr-arrow-right mt-1"></i>
+                </a>
+                <a href="profissional.html" class="px-8 py-4 glass rounded-2xl font-bold text-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
+                    Tornar-se Profissional
+                </a>
+            </div>
+
+            <!-- Dashboard Preview Hero -->
+            <div data-aos="zoom-in" data-aos-delay="400" class="relative max-w-5xl mx-auto">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-darkBg via-transparent to-transparent z-10"></div>
+                <div class="glass p-4 rounded-3xl shadow-2xl animate-float">
+                    <img src="dashboard_preview.jpg" alt="Dashboard" class="rounded-2xl w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Serviços -->
+    <section id="servicos" x-data="{ showAll: false }" class="py-24 bg-white dark:bg-slate-900/50 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            <div class="text-center mb-16">
+                <h2 data-aos="fade-up" class="text-3xl lg:text-5xl font-display font-bold mb-4">Soluções para cada necessidade</h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-slate-600 dark:text-gray-400">Selecionamos apenas o top 1% dos profissionais.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Category 1: Serviços Disponíveis -->
+                <div data-aos="fade-up" class="p-8 rounded-3xl glass border-t-4 border-primary transition-all group">
+                    <div class="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/40 text-primary rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fi fi-rr-home text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Serviços Domésticos</h3>
+                    <ul class="space-y-3 text-slate-600 dark:text-gray-400">
+                        <li class="flex items-center gap-3"><i data-lucide="baby" class="w-4 h-4 text-primary"></i> Babysitter</li>
+                        <li class="flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-primary"></i> Assistente pós-parto</li>
+                        <li class="flex items-center gap-3"><i data-lucide="users" class="w-4 h-4 text-primary"></i> Cuidadora infantil</li>
+                        <li class="flex items-center gap-3"><i data-lucide="sparkles" class="w-4 h-4 text-primary"></i> Limpeza doméstica</li>
+                        <li class="flex items-center gap-3"><i data-lucide="layout-grid" class="w-4 h-4 text-primary"></i> Organização de casa</li>
+                        <li class="flex items-center gap-3"><i data-lucide="shirt" class="w-4 h-4 text-primary"></i> Passadeira de roupa</li>
+                        <li class="flex items-center gap-3"><i data-lucide="utensils" class="w-4 h-4 text-primary"></i> Cozinheira por dia</li>
+                    </ul>
+                </div>
+
+                <!-- Category 2: Cuidados Especiais -->
+                <div data-aos="fade-up" data-aos-delay="100" class="p-8 rounded-3xl glass border-t-4 border-accent transition-all group">
+                    <div class="w-14 h-14 bg-cyan-100 dark:bg-cyan-900/40 text-accent rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fi fi-rr-heart-handshake text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Cuidados Especiais</h3>
+                    <ul class="space-y-3 text-slate-600 dark:text-gray-400">
+                        <li class="flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-accent"></i> Cuidador(a) de idoso</li>
+                        <li class="flex items-center gap-3"><i data-lucide="stethoscope" class="w-4 h-4 text-accent"></i> Auxiliar de doentes</li>
+                        <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-accent"></i> Limpeza hospitalar</li>
+                    </ul>
+                </div>
+
+                <!-- Category 3: Compras Assistidas -->
+                <div data-aos="fade-up" data-aos-delay="200" class="p-8 rounded-3xl glass border-t-4 border-orange-400 transition-all group">
+                    <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/40 text-orange-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fi fi-rr-shopping-cart text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Compras Assistidas</h3>
+                    <p class="text-slate-600 dark:text-gray-400 mb-6 font-medium">Fazemos as compras por você com total transparência e cuidado.</p>
+                    <div class="flex items-center text-orange-500 font-bold">Saiba mais <i data-lucide="chevron-right" class="ml-2 w-4 h-4"></i></div>
+                </div>
+
+                <!-- Category 4: Motoristas Auxiliares -->
+                <div x-show="showAll" x-cloak x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" data-aos="fade-up" data-aos-delay="300" class="p-8 rounded-3xl glass border-t-4 border-green-400 transition-all group">
+                    <div class="w-14 h-14 bg-green-100 dark:bg-green-900/40 text-green-500 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fi fi-rr-car text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Motoristas Auxiliares</h3>
+                    <ul class="space-y-3 text-slate-600 dark:text-gray-400">
+                        <li class="flex items-center gap-3"><i data-lucide="glass-water" class="w-4 h-4 text-green-500"></i> Motorista para pessoa embriagada</li>
+                        <li class="flex items-center gap-3"><i data-lucide="user-check" class="w-4 h-4 text-green-500"></i> Motorista para idosos</li>
+                        <li class="flex items-center gap-3"><i data-lucide="calendar" class="w-4 h-4 text-green-500"></i> Motorista para eventos</li>
+                        <li class="flex items-center gap-3"><i data-lucide="baby" class="w-4 h-4 text-green-500"></i> Levar e buscar crianças</li>
+                    </ul>
+                </div>
+
+                <!-- Category 5: Serviços Corporativos & Mudanças -->
+                <div x-show="showAll" x-cloak x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" data-aos="fade-up" data-aos-delay="400" class="p-8 rounded-3xl glass border-t-4 border-slate-500 transition-all group">
+                    <div class="w-14 h-14 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fi fi-rr-building text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Corporativo & Mudanças</h3>
+                    <ul class="space-y-3 text-slate-600 dark:text-gray-400">
+                        <li class="flex items-center gap-3"><i data-lucide="briefcase" class="w-4 h-4 text-slate-500"></i> Limpeza empresarial</li>
+                        <li class="flex items-center gap-3"><i data-lucide="hammer" class="w-4 h-4 text-slate-500"></i> Limpeza pós-obra</li>
+                        <li class="flex items-center gap-3"><i data-lucide="truck" class="w-4 h-4 text-slate-500"></i> Equipe de mudança</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <button @click="showAll = !showAll" 
+                        class="inline-flex items-center gap-2 px-10 py-4 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all group">
+                    <span x-text="showAll ? 'Ver menos' : 'Carregar mais serviços'"></span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300" :class="showAll ? 'rotate-180' : ''"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Como Funciona -->
+    <section id="como-funciona" class="py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <h2 data-aos="fade-right" class="text-4xl lg:text-5xl font-display font-bold mb-8 leading-tight">Sua casa em ordem em <span class="text-primary">3 passos simples.</span></h2>
+                    
+                    <div class="space-y-8">
+                        <div data-aos="fade-right" data-aos-delay="100" class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">1</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Escolha o Serviço</h4>
+                                <p class="text-slate-600 dark:text-gray-400">Selecione o que precisa e veja preços instantâneos no nosso app.</p>
+                            </div>
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="200" class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">2</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Agende o Horário</h4>
+                                <p class="text-slate-600 dark:text-gray-400">Escolha a melhor data. Nossa IA encontra o profissional perfeito para você.</p>
+                            </div>
+                        </div>
+                        <div data-aos="fade-right" data-aos-delay="300" class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">3</div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Relaxe e Aproveite</h4>
+                                <p class="text-slate-600 dark:text-gray-400">Pagamento seguro via plataforma e garantia total de satisfação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 relative" data-aos="fade-left">
+                    <div class="glass p-8 rounded-[2rem] shadow-2xl relative z-10">
+                        <!-- Dashboard UI Mockup -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="font-bold text-lg">Pedidos Ativos</span>
+                                <i class="fi fi-rr-bell text-primary"></i>
+                            </div>
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-2xl flex items-center gap-4 border-l-4 border-primary">
+                                <img src="https://i.pravatar.cc/100?u=1" class="w-12 h-12 rounded-full" alt="User">
+                                <div>
+                                    <p class="font-bold">Maria Silva</p>
+                                    <p class="text-xs opacity-70">Limpeza Express em andamento...</p>
+                                </div>
+                                <span class="ml-auto text-primary font-bold">120 MZN</span>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-2xl flex items-center gap-4">
+                                <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center text-accent">
+                                    <i class="fi fi-rr-clock-three"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Próximo Serviço</p>
+                                    <p class="text-xs opacity-70">Amanhã às 14:00 - Babysitter</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decor element -->
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Testemunhos -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/30">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            <h2 class="text-center text-3xl font-display font-bold mb-16">O que dizem nossos clientes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <template x-for="i in [1,2,3]">
+                    <div data-aos="zoom-in" :data-aos-delay="i*100" class="glass p-8 rounded-3xl">
+                        <div class="flex gap-1 text-yellow-400 mb-4">
+                            <i class="fi fi-rr-star text-xs"></i>
+                            <i class="fi fi-rr-star text-xs"></i>
+                            <i class="fi fi-rr-star text-xs"></i>
+                            <i class="fi fi-rr-star text-xs"></i>
+                            <i class="fi fi-rr-star text-xs"></i>
+                        </div>
+                        <p class="italic text-slate-600 dark:text-gray-400 mb-6 font-medium">"A Moz Help mudou minha rotina. A facilidade de agendar e a qualidade dos profissionais é incomparável com qualquer outra plataforma."</p>
+                        <div class="flex items-center gap-3">
+                            <img :src="`https://i.pravatar.cc/100?u=${i+10}`" class="w-12 h-12 rounded-full border-2 border-primary" alt="Avatar">
+                            <div>
+                                <p class="font-bold">Ana Oliveira</p>
+                                <p class="text-sm opacity-60">CEO TechMind</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Call to Action -->
+    <section class="py-20">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-primary rounded-[3rem] p-12 lg:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-indigo-500/40">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+                <h2 data-aos="fade-up" class="text-4xl lg:text-5xl font-display font-bold mb-6 relative z-10">Simplifique sua vida hoje mesmo.</h2>
+                <p data-aos="fade-up" data-aos-delay="100" class="text-indigo-100 text-lg mb-10 max-w-xl mx-auto relative z-10">Junte-se a mais de 10.000 famílias que confiam na Moz Help para cuidar do que é mais importante.</p>
+                <div data-aos="fade-up" data-aos-delay="200" class="relative z-10 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="solicitar.html" class="bg-white text-primary px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-50 transition-all flex items-center justify-center gap-2">
+                        Solicitar Serviço <i class="fi fi-rr-arrow-right mt-1"></i>
+                    </a>
+                    <a href="profissional.html" class="bg-indigo-700/50 backdrop-blur-md text-white border border-white/20 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all flex items-center justify-center">
+                        Tornar-se Profissional
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="py-16 px-6 lg:px-16 bg-white dark:bg-darkCard border-t border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div class="md:col-span-4">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-9 w-auto mb-6 optimize-logo">
+                <p class="text-slate-500 dark:text-gray-400 leading-relaxed mb-6 text-sm max-w-sm">Simplificando o dia a dia das famílias e empresas moçambicanas com tecnologia e confiança.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Instagram"><i class="fi fi-brands-instagram text-sm"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="LinkedIn"><i class="fi fi-brands-linkedin text-sm"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Facebook"><i class="fi fi-brands-facebook text-sm"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 md:col-start-7 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Plataforma</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a></li>
+                    <li><a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a></li>
+                    <li><a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a></li>
+                    <li><a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Empresa</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">Sobre Nós</a></li>
+                    <li><a href="contato.html" class="hover:text-primary transition-colors">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Suporte</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="#" class="hover:text-primary transition-colors">Ajuda</a></li>
+                    <li><a href="termos.html" class="hover:text-primary transition-colors">Termos</a></li>
+                    <li><a href="privacidade.html" class="hover:text-primary transition-colors">Privacidade</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-400 uppercase tracking-widest font-medium">
+            <p>&copy; 2024 Moz Help Tecnologia S.A.</p>
+            <div class="flex gap-8">
+                <a href="cookies.html" class="hover:text-primary transition-colors">Cookies</a>
+                <a href="contato.html" class="hover:text-primary transition-colors font-bold text-primary">WhatsApp Suporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+            x-show="scrolled" x-transition
+            class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all z-50">
+        <i class="fi fi-rr-arrow-up mt-1"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+
+        // Scroll Progress Function
+        function updateScrollProgress() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
+        }
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Floating animation for mockup
+        gsap.to(".animate-float", {
+            y: -20,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut"
+        });
+    </script>
+</body>
+</html>

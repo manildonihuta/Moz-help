@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br" x-data="{ darkMode: false, mobileMenu: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós | Moz Help</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        accent: '#06B6D4',
+                        darkBg: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300 font-sans">
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" data-lucide="moon"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="text-yellow-400"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition x-cloak class="absolute top-full left-0 w-full glass p-6 md:hidden">
+            <div class="flex flex-col gap-4">
+                <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                <a href="como-funciona.html" @click="mobileMenu = false">Como Funciona</a>
+                <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                <a href="sobre.html" @click="mobileMenu = false" class="text-primary font-bold">Sobre Nós</a>
+                <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-3 py-2 border-t border-gray-50 dark:border-gray-800 mt-2">
+                    <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="w-5 h-5 text-yellow-400"></i>
+                    <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                </button>
+                <a href="login.html" class="text-primary font-bold border-t border-gray-50 dark:border-gray-800 pt-4">Entrar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 lg:px-16 text-center lg:text-left overflow-hidden relative">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="lg:w-1/2 space-y-8">
+                <span class="px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-primary font-bold text-sm tracking-wide">NOSSA MISSÃO</span>
+                <h1 class="text-5xl lg:text-7xl font-display font-extrabold tracking-tight leading-tight">
+                    Redefinindo o <span class="gradient-text">Cuidado</span> e a <span class="gradient-text">Excelência</span>
+                </h1>
+                <p class="text-xl text-slate-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+                    A Moz Help nasceu da visão de simplificar a vida em Moçambique, conectando pessoas que precisam de ajuda com profissionais qualificados e confiáveis sob demanda.
+                </p>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <div class="w-full h-[500px] rounded-[3rem] bg-gradient-to-br from-primary to-accent overflow-hidden shadow-2xl relative">
+                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" alt="Team" class="w-full h-full object-cover mix-blend-overlay opacity-60">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="glass p-8 rounded-3xl text-center max-w-xs scale-110">
+                            <h3 class="text-4xl font-display font-bold">+10k</h3>
+                            <p class="text-sm font-semibold opacity-70 uppercase tracking-widest">Usuários Felizes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Sections -->
+    <section class="py-20 px-6 lg:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="glass p-10 rounded-[2.5rem] border-b-4 border-primary">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                    <i data-lucide="target" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-display font-bold mb-4">Missão</h3>
+                <p class="text-slate-600 dark:text-gray-400">Proporcionar tranquilidade e eficiência através de uma plataforma tecnológica segura e humana.</p>
+            </div>
+            <div class="glass p-10 rounded-[2.5rem] border-b-4 border-accent">
+                <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mb-6">
+                    <i data-lucide="eye" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-display font-bold mb-4">Visão</h3>
+                <p class="text-slate-600 dark:text-gray-400">Ser a plataforma líder em serviços domésticos e corporativos em toda a África Austral.</p>
+            </div>
+            <div class="glass p-10 rounded-[2.5rem] border-b-4 border-indigo-400">
+                <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/20 rounded-2xl flex items-center justify-center text-indigo-500 mb-6">
+                    <i data-lucide="heart" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-display font-bold mb-4">Valores</h3>
+                <p class="text-slate-600 dark:text-gray-400">Confiança, integridade, inovação e o compromisso inabalável com a qualidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section Mockup -->
+    <section class="py-20 px-6 lg:px-16 bg-white dark:bg-gray-900/50">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl lg:text-5xl font-display font-extrabold mb-12">Nossa História</h2>
+            <div class="relative max-w-3xl mx-auto">
+                <div class="absolute left-1/2 -ml-0.5 w-1 h-full bg-indigo-100 dark:bg-indigo-900/20"></div>
+                <div class="space-y-20">
+                    <div class="relative flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold z-10 mb-4">1</div>
+                        <div class="glass p-6 rounded-2xl max-w-sm">
+                            <h4 class="font-bold text-lg mb-2">Fundação (2022)</h4>
+                            <p class="text-sm opacity-70">A Moz Help começa como um pequeno projeto piloto em Maputo para ajudar famílias em suas rotinas.</p>
+                        </div>
+                    </div>
+                    <div class="relative flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-bold z-10 mb-4">2</div>
+                        <div class="glass p-6 rounded-2xl max-w-sm">
+                            <h4 class="font-bold text-lg mb-2">Crescimento (2023)</h4>
+                            <p class="text-sm opacity-70">Expandimos para serviços corporativos e motoristas auxiliares, alcançando milhares de usuários.</p>
+                        </div>
+                    </div>
+                    <div class="relative flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-indigo-400 text-white flex items-center justify-center font-bold z-10 mb-4">3</div>
+                        <div class="glass p-6 rounded-2xl max-w-sm">
+                            <h4 class="font-bold text-lg mb-2">Hoje</h4>
+                            <p class="text-sm opacity-70">Lançamos nossa nova plataforma premium com foco total em experiência do usuário e design de ponta.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="py-16 px-6 lg:px-16 bg-white dark:bg-darkCard border-t border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div class="md:col-span-4">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-9 w-auto mb-6 optimize-logo">
+                <p class="text-slate-500 dark:text-gray-400 leading-relaxed mb-6 text-sm max-w-sm">Simplificando o dia a dia das famílias e empresas moçambicanas com tecnologia e confiança.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 md:col-start-7 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Plataforma</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a></li>
+                    <li><a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a></li>
+                    <li><a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a></li>
+                    <li><a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Empresa</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors font-bold text-primary">Sobre Nós</a></li>
+                    <li><a href="contato.html" class="hover:text-primary transition-colors">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Suporte</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="#" class="hover:text-primary transition-colors">Ajuda</a></li>
+                    <li><a href="termos.html" class="hover:text-primary transition-colors">Termos</a></li>
+                    <li><a href="privacidade.html" class="hover:text-primary transition-colors">Privacidade</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-400 uppercase tracking-widest font-medium">
+            <p>&copy; 2024 Moz Help Tecnologia S.A.</p>
+            <div class="flex gap-8">
+                <a href="cookies.html" class="hover:text-primary transition-colors">Cookies</a>
+                <a href="contato.html" class="hover:text-primary transition-colors font-bold text-primary">WhatsApp Suporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

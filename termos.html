@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br" x-data="{ darkMode: false, mobileMenu: false }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso | Moz Help</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        accent: '#06B6D4',
+                        darkBg: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark .glass { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .optimize-logo { 
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+        }
+        @view-transition { navigation: auto; }
+        .legal-content h2 { font-family: 'Sora', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 700; margin-top: 3rem; margin-bottom: 1.5rem; }
+        .legal-content p { color: #475569; line-height: 1.625; margin-bottom: 1rem; }
+        .dark .legal-content p { color: #94a3b8; }
+        .legal-content ul { list-style-type: disc; list-style-position: inside; color: #475569; margin-bottom: 1.5rem; }
+        .dark .legal-content ul { color: #94a3b8; }
+        .legal-content ul li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-300 font-sans">
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false }" 
+         class="fixed w-full z-50 transition-all duration-300 px-6 lg:px-16 glass py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-10 w-auto optimize-logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a>
+                <a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a>
+                <a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a>
+                <a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors" aria-label="Alternar tema">
+                    <i x-show="!darkMode" data-lucide="moon"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="text-yellow-400"></i>
+                </button>
+                <a href="login.html" class="px-6 py-2.5 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all">Entrar</a>
+                <a href="solicitar.html" class="px-6 py-2.5 rounded-full font-semibold bg-primary text-white shadow-lg shadow-indigo-500/30 hover:scale-105 transition-all">Solicitar serviço</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden" @click="mobileMenu = !mobileMenu" aria-label="Menu principal">
+                <i data-lucide="menu"></i>
+            </button>
+                    <a href="como-funciona.html" @click="mobileMenu = false">Como Funciona</a>
+                    <a href="servicos.html" @click="mobileMenu = false">Serviços</a>
+                    <a href="beneficios.html" @click="mobileMenu = false">Benefícios</a>
+                    <a href="seguranca.html" @click="mobileMenu = false">Segurança</a>
+                    <a href="sobre.html" @click="mobileMenu = false">Sobre Nós</a>
+                    <a href="blog.html" @click="mobileMenu = false">Blog</a>
+                    <a href="contato.html" @click="mobileMenu = false">Contato</a>
+                    <button @click="darkMode = !darkMode; mobileMenu = false" class="flex items-center gap-2">
+                        <span x-text="darkMode ? 'Modo Claro' : 'Modo Escuro'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="pt-32 pb-20 px-6 lg:px-16">
+        <div class="max-w-4xl mx-auto glass p-8 md:p-16 rounded-[3rem] shadow-xl">
+            <h1 class="text-4xl md:text-5xl font-display font-extrabold mb-8 italic"><span class="gradient-text">Termos</span> de Uso</h1>
+            <p class="text-sm opacity-60 mb-12">Última atualização: 08 de Março de 2024</p>
+            
+            <div class="legal-content">
+                <p>Bem-vindo à Moz Help. Ao utilizar a nossa plataforma, você concorda com os seguintes termos e condições. Leia-os atentamente.</p>
+
+                <h2>1. Aceitação dos Termos</h2>
+                <p>O acesso e uso da Moz Help estão condicionados à sua aceitação e conformidade com estes termos. Estes termos aplicam-se a todos os visitantes, usuários e outros que acedem ou utilizam o serviço.</p>
+
+                <h2>2. Descrição do Serviço</h2>
+                <p>A Moz Help é uma plataforma de intermediação tecnológica que conecta usuários que necessitam de assistência doméstica e corporativa com prestadores de serviços independentes qualificados.</p>
+
+                <h2>3. Contas de Usuário</h2>
+                <p>Ao criar uma conta, você deve nos fornecer informações precisas e completas. Você é responsável por salvaguardar a senha que utiliza para aceder ao serviço e por quaisquer atividades ou ações sob sua senha.</p>
+
+                <h2>4. Cancelamentos e Reembolsos</h2>
+                <p>Os usuários podem cancelar agendamentos de acordo com a nossa política de cancelamento vigente. Reembolsos serão processados conforme as regras específicas de cada categoria de serviço, detalhadas no momento da reserva.</p>
+
+                <h2>5. Limitação de Responsabilidade</h2>
+                <p>A Moz Help não é empregadora dos profissionais parceiros. Atuamos como facilitadores da conexão e gestão do serviço, garantindo a melhor experiência possível, mas as responsabilidades técnicas do serviço recaem sobre o prestador.</p>
+
+                <h2>6. Modificações dos Termos</h2>
+                <p>Reservamo-nos o direito de modificar ou substituir estes termos a qualquer momento. Se uma revisão for material, tentaremos fornecer um aviso com pelo menos 30 dias de antecedência antes de quaisquer novos termos entrarem em vigor.</p>
+
+                <div class="mt-16 p-8 rounded-3xl bg-accent/5 border border-accent/10">
+                    <h4 class="font-bold mb-2">Compromisso Moz Help</h4>
+                    <p class="text-sm mb-4">Trabalhamos para garantir que todos os termos sejam justos e transparentes para ambas as partes.</p>
+                    <a href="/" class="text-accent font-bold hover:underline">Voltar ao Início</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="py-16 px-6 lg:px-16 bg-white dark:bg-darkCard border-t border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+            <div class="md:col-span-4">
+                <img src="logo_wordmark.png" alt="Moz Help Logo" class="h-9 w-auto mb-6 optimize-logo">
+                <p class="text-slate-500 dark:text-gray-400 leading-relaxed mb-6 text-sm max-w-sm">Simplificando o dia a dia das famílias e empresas moçambicanas com tecnologia e confiança.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center hover:bg-primary hover:text-white transition-all" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 md:col-start-7 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Plataforma</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="como-funciona.html" class="hover:text-primary transition-colors">Como Funciona</a></li>
+                    <li><a href="servicos.html" class="hover:text-primary transition-colors">Serviços</a></li>
+                    <li><a href="beneficios.html" class="hover:text-primary transition-colors">Benefícios</a></li>
+                    <li><a href="seguranca.html" class="hover:text-primary transition-colors">Segurança</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Empresa</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="sobre.html" class="hover:text-primary transition-colors">Sobre Nós</a></li>
+                    <li><a href="contato.html" class="hover:text-primary transition-colors">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-2 text-sm">
+                <h5 class="font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Suporte</h5>
+                <ul class="space-y-4 text-slate-500 dark:text-gray-400">
+                    <li><a href="#" class="hover:text-primary transition-colors">Ajuda</a></li>
+                    <li><a href="termos.html" class="hover:text-primary transition-colors font-bold text-primary">Termos</a></li>
+                    <li><a href="privacidade.html" class="hover:text-primary transition-colors">Privacidade</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-slate-400 uppercase tracking-widest font-medium">
+            <p>&copy; 2024 Moz Help Tecnologia S.A.</p>
+            <div class="flex gap-8">
+                <a href="cookies.html" class="hover:text-primary transition-colors">Cookies</a>
+                <a href="contato.html" class="hover:text-primary transition-colors font-bold text-primary">WhatsApp Suporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
